@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Untitled Document</title>
+    <style>
+        *{margin:0; padding:0;}
+        #rolling{width:800px; height:139px; background-color:#4CEFBF; margin:100px auto; position:relative; overflow:hidden;}
+        #rolling ul{position:absolute; left:0; top:0;}
+        #rolling ul li{float:left; width:200px; height:139px; list-style:none;}
+        .rollUl:hover{
+            animation-play-state:paused;
+            cursor: pointer;
+        }
+        .rollRightAnimation{
+            animation: rollRight 6s linear infinite;
+        }
+        .rollLeftAnimation{
+            animation: rollLeft 6s linear infinite;
+        }
+        @keyframes rollLeft {
+            0%{
+                left:0;
+            }
+            100%{
+                left: -800px;
+            }
+        }
+        @keyframes rollRight {
+            0%{
+                left: -800px;
+            }
+            100%{
+                left: 0;
+            }
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var rollDiv = document.querySelector('#rolling');
+            var ulo = rollDiv.getElementsByTagName('ul')[0];
+            var oli = ulo.getElementsByTagName('li');
+            ulo.innerHTML+=ulo.innerHTML;
+            ulo.style.width = oli[0].offsetWidth * oli.length + 'px';
+
+            document.getElementById('left').onclick = function(){
+                ulo.className = 'rollUl rollLeftAnimation';
+            };
+            document.getElementById('right').onclick = function(){
+                ulo.className = 'rollUl rollRightAnimation';
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+<button id="left">left</button>
+<button id="right">right</button>
+<div id='rolling'>
+    <ul class="rollUl rollLeftAnimation">
+        <li><img src="../img/1.jpeg"> </li>
+        <li><img src="../img/2.jpeg"> </li>
+        <li><img src="../img/3.jpeg"> </li>
+        <li><img src="../img/4.jpeg"> </li>
+    </ul>
+</div>
+</body>
+</html>
