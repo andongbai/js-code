@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<style>
+canvas{
+	border:1px solid #000000;
+}
+
+</style>
+<script>
+window.onload=function(){
+	var oBtn=document.getElementById("previewButton");
+	oBtn.onclick=previewHandler;
+}
+
+function previewHandler(){
+	var canvas=document.getElementById("tshirtCanvas");
+	var context= canvas.getContext('2d');
+	fillBackgroundColor(canvas,context);
+	
+	var selectedObj=document.getElementById('selectShape');
+	var index=selectedObj.selectedIndex;
+	var shape=selectedObj[index].value;
+	
+	if(shape=="squares"){
+		for(var squares=0;squares<20;squares++){
+			drawSquares(canvas,context);
+		}
+	}
+	
+	function drawSquares(canvas,context){
+		var w=Math.floor(Math.random()*40);
+		var x=Math.floor(Math.random()*canvas.width);
+		var y=Math.floor(Math.random()*canvas.height);
+		
+		context.fillStyle='lightblue';
+		context.fillRect(x,y,w,w);
+	}
+}
+
+function fillBackgroundColor(canvas,context){
+	var selectObj=document.getElementById('selectBC');
+	var index=selectObj.selectedIndex;
+	var bgColor=selectObj.options[index].value;
+	context.fillStyle=bgColor;
+	context.fillRect(0,0,canvas.width,canvas.height);
+}
+
+</script>
+
+</head>
+
+<body>
+   <canvas id="tshirtCanvas" width="600" height="200"></canvas>
+   <form>
+      <p>
+         <label>Select background color:</label>
+         <select id="selectBC">
+            <option value="white" selected="selected">White</option>
+            <option value="black">black</option>
+         </select>
+      </p>
+      <p>
+         <label>Select circle or squares:</label>
+         <select id="selectShape">
+            <option value="circles" selected="selected">Circles</option>
+            <option value="squares">squares</option>
+         </select>
+      </p>
+      <p>
+         <input type="button" id="previewButton" value="Preview">
+      </p>
+   </form>
+</body>
+</html>
