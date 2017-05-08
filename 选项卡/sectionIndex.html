@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<script type="text/javascript" src="jquery-1.10.2.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    var i=0;
+    $(".sectionNumber ul li").eq(i).addClass("sectionActive sectionTextActive");
+    
+    $(".sectionContent > div:first-child").addClass("default");
+    
+    $("<div class='outter'><div class='circle'></div><div class='bar'></div></div>").insertBefore('.sectionNumber ul li a');
+    $("#nextSection").click(function(){
+        i++;
+        if(i>2){
+            i=2;
+            }           
+        $(".sectionNumber ul li").eq(i).addClass("sectionTextActive").siblings().removeClass("sectionTextActive");      
+        $(".sectionNumber ul li").eq(i).addClass("sectionActive");        
+        $(".sectionContent div").hide().eq(i).show();
+        });
+        
+    $("#presection").click(function(){
+        i--;        
+        if(i<0){
+            i=0;
+            }
+        $(".sectionNumber ul li").eq(i).addClass("sectionTextActive").siblings().removeClass("sectionTextActive");
+        $(".sectionNumber ul li:gt("+i+")").removeClass("sectionActive");        
+        $(".sectionContent div").hide().eq(i).show();            
+        });        
+});
+</script>
+<style>
+*{box-sizing:border-box}
+.container{
+    width: 80%;
+    margin: auto;
+    height: 500px;}
+
+.sectionNumber{
+    font-size:14px;
+    display:inline-block;
+    background-color:aliceblue;
+}
+.sectionNumber > ul{
+    list-style:none;
+    }
+.sectionNumber > ul > li{
+    height:156px;
+    width:200px;
+    }
+.sectionNumber > ul > li > a{    
+    /*vertical-align:top;*/
+    display:block;
+    text-align:right;
+    line-height: 11px;
+    margin-right: 16px;
+    }
+.sectionNumber > ul > li > a > span{
+    }
+/*.sectionNumber > ul > li:after{
+    content:"";
+    display:inline-block;
+    border:1px solid #EC1115;
+    background:white;
+    width:10px;
+    height:10px;
+    border-radius:5px;
+    }*/
+.sectionContent{    
+    width: 77%;
+    background-color: #FAEBD7;
+    display: inline-block;
+    float: right;
+    height: 100%;
+    text-align:center;
+    }
+.sectionContent div{
+    display:none;
+    }
+.sectionTextActive{
+    font-size:36px;
+    } 
+.sectionActive .circle{border:2px solid #121212;}
+.sectionActive .bar{background-color:black;};
+.circleActive{border:2px solid #121212;}
+.barActive{background-color:black;}
+.sectionContent .default{
+    display:block;
+    }
+.outter{
+    float:right;
+    height:100%;
+    }
+.circle{
+    width:15px;
+    height:15px;
+    border:1px solid #1388F5;
+    border-radius:7px;
+    background-color:#fff;
+    }
+.bar{
+    width:4px;
+    height:100%;
+    background-color:#2A7EF0;
+    margin:auto;
+    }
+.bottomButton{
+    text-align:center;
+    }
+</style>
+</head>
+
+<body>
+<div class="main">
+ <div class="container">
+  <div class="sectionNumber">
+     <ul>
+       <li><a><span>section 1</span></a></li>
+       <li><a><span>section 2</a></span></li>
+       <li><a><span>section 3</a></span></li>
+     </ul>
+  </div>
+  <div class="sectionContent">
+     <div>section 1</div>
+     <div>section 2</div>
+     <div>section 3</div>
+  </div>
+ </div>
+  <div class="bottomButton">
+     <input id="nextSection" type="button" value="next" />
+     <input id="presection" type="button" value="pre" />
+  </div>
+</div>
+</body>
+</html>
