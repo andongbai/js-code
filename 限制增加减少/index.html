@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<script type="text/javascript" src="jquery-1.10.2.js"></script>
+<script>
+function addOrDelete()
+{
+    var num=$("#additems div").length;
+    
+    if(num==1){
+        $(".deleteInor").css("display","none");
+        }
+        else if(num>9)
+        {
+            $(".addInfor").css("display","none");
+        }
+        else
+        {
+            $(".deleteInor").css("display","");
+            $(".addInfor").css("display","");
+            }
+}
+
+$(document).ready(function() {          
+    $("#additems").on('click','.addInfor',function(){
+        $("#additems div:last-child").after("<div>\
+                                            <input type=\"text\"/>\
+                                            <input type=\"button\" class=\"addInfor\" value=\"add\"/>\
+                                            <input type=\"button\" value=\"reduce\" class=\"deleteInor\"/></div>");
+         addOrDelete();                                   
+        });            
+    $("#additems").on('click','.deleteInor',function(){
+        $(this).parent().remove();
+        addOrDelete();
+    });    
+});
+</script>
+</head>
+
+<body>
+<div id="add">
+  <div id="additems">
+    <div>
+       <input type="text" /> 
+       <input type="button" value="add" class="addInfor" /> 
+       <input type="button" value="reduce" class="deleteInor"/>
+    </div>
+    <div>
+       <input type="text" /> 
+       <input type="button" value="add" class="addInfor" /> 
+       <input type="button" value="reduce" class="deleteInor"/>
+    </div>
+    <div>
+       <input type="text" /> 
+       <input type="button" value="add" class="addInfor" /> 
+       <input type="button" value="reduce" class="deleteInor"/>
+    </div>
+    <div>
+       <input type="text" /> 
+       <input type="button" value="add" class="addInfor" /> 
+       <input type="button" value="reduce" class="deleteInor"/>
+    </div>
+  </div>
+  
+</div>
+</body>
+</html>
