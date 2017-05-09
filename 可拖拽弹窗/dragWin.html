@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>shine</title>
+    <style>
+        html{
+            height: 100%;
+        }
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+       .dialog{
+           width: 500px;
+           height: 300px;
+           background-color: rgba(200,200,200,1);
+           position: absolute;
+           display: none;
+           z-index: 3;
+       }
+       .dialog-title{
+           width: 100%;
+           height: 50px;
+           position: absolute;
+           top:0;
+           background-color: rgba(100,100,100,1);
+           cursor: move;
+           padding: 5px 7px;
+           box-sizing: border-box;
+       }
+       .mask{
+           background-color: rgba(0,0,0,0.5);
+           position: absolute;
+           top:0;
+           z-index: 2;
+           left: 0;
+       }
+        .link{
+            text-align: right;
+            line-height: 20px;
+            padding-right: 40px;
+        }
+        .closeLink{
+            float: right;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="mask" id="mask"></div>
+    <div class="link" onclick="showDialog()">
+        login
+    </div>
+    <div class="dialog" id="dialog">
+        <div class="dialog-title" id="dialogTitle">
+            <span>login</span>
+            <a href="javascript:hideDialog()" class="closeLink">close</a>
+        </div>
+    </div>
+
+    <script>
+
+        var browserWidth = document.documentElement.clientWidth;
+        var browserHeight = document.documentElement.clientHeight;
+
+        var isDragging = false;
+
+        var mouseOffsetX = 0;
+        var mouseOffsetY = 0;
+
+        function fillBody(ele){
+            getById(ele).style.width=browserWidth + 'px';
+            getById(ele).style.height=browserHeight + 'px';
+        }
+
+        function autoCenter(e){
+            getById(e).style.top =  (browserHeight - getById(e).offsetHeight)/2 + 'px';
+            getById(e).style.left = (browserWidth - getById(e).offsetWidth)/2 + 'px';
+        }
+        function getById(id){
+            return document.getElementById(id);
+        }
+
+        function showDialog(){
+            getById('dialog').style.display = 'block';
+            getById('mask').style.display = 'block';
+            autoCenter('dialog');
+            fillBody('mask');
+        }
+
+        function hideDialog(){
+            getById('dialog').style.display = 'none';
+            getById('mask').style.display = 'none';
+        }
+
+        getById('dialogTitle').addEventListener('mousedown',function(e){
+            var e  = e || window.event;
+
+            mouseOffsetX = e.pageX - getById('dialog').offsetLeft;
+            mouseOffsetY = e.pageY - getById('dialog').offsetTop;
+
+            isDragging = true;
+        });
+
+        document.onmousemove = function(e){
+            var e = e || window.event;
+
+            var mouseX = e.pageX;
+            var mouseY = e.pageY;
+
+            var moveX = 0;
+            var moveY = 0;
+            if(isDragging == true){
+                moveX = mouseX - mouseOffsetX;
+                moveY = mouseY - mouseOffsetY;
+
+               /*保证弹出框不会超出当前页面--start*/
+                var pageWidth = document.documentElement.clientWidth;
+                var pageHeight = document.documentElement.clientHeight;
+
+                var dialogWidth = getById('dialog').offsetWidth;
+                var dialogHeight = getById('dialog').offsetHeight;
+
+                var maxX = pageWidth - dialogWidth;
+                var maxY = pageHeight - dialogHeight;
+
+                moveX = Math.min(maxX,Math.max(0,moveX));
+                moveY = Math.min(maxY,Math.max(0,moveY));
+                /*保证弹出框不会超出当前页面--end*/
+
+                console.log('move:'+mouseY+'mouseoffset:'+mouseOffsetY+'mouse'+moveY);
+
+                getById('dialog').style.left = moveX + 'px';
+                getById('dialog').style.top = moveY+'px';
+            }
+        };
+
+        document.onmouseup = function(){
+            isDragging = false;
+        };
+
+    </script>
+</body>
+</html>
