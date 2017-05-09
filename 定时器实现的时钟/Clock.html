@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<script>
+function Dou(n){
+		 if(n<10){
+			 return '0'+n;
+		  }else{
+			 return ''+n;
+		}
+	 }	 
+ window.onload=function(){	  	 
+	 var aImg=document.getElementsByTagName('img');	 
+	 function dick(){
+		 var dat=new Date();
+		 var str=Dou(dat.getHours())+Dou(dat.getMinutes())+Dou(dat.getSeconds());
+	     for(var i=0;i<aImg.length;i++){
+		 aImg[i].src='img/'+str[i]+'.png';
+	     }
+	  }	 
+	 setInterval(dick,1000);
+	 dick();
+ }
+</script>
+
+<style>
+.a{
+	background-color:#021688;
+	width:1000px;
+	height:500px;
+	text-align:center;
+	margin:auto;
+	line-height:500px;
+	font-size:60px;
+	color:white;
+}
+</style>
+</head>
+
+<body>
+<div class="a">
+  <img src="img/0.png" />
+  <img src="img/0.png" />
+  :
+  <img src="img/0.png" />
+  <img src="img/0.png" />
+  :
+  <img src="img/0.png" />
+  <img src="img/0.png" />
+</div>
+</body>
+</html>
